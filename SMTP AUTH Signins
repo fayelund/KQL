@@ -1,0 +1,4 @@
+SigninLogs
+| where ClientAppUsed == "Authenticated SMTP"
+| summarize count() by bin(TimeGenerated, 1h)
+| render timechart 
