@@ -1,0 +1,7 @@
+AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName == "Add member to role completed (PIM activation)"
+| summarize Count = count()by hourofday(TimeGenerated)
+| project-rename Hour = Column1
+| order by Hour asc
+| render timechart
