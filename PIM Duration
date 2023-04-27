@@ -1,0 +1,11 @@
+AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName == "Add member to role completed (PIM activation)"
+| where Category == "RoleManagement"
+| extend StartTime = todatetime(AdditionalDetails[3].value)
+| extend EndTime = todatetime(AdditionalDetails[4].value)
+| extend Duration = tostring(EndTime - StartTime)
+| summarize Count=count() by Duration
+| sort by Duration asc
+| project Duration, Count
+| render piechart 
