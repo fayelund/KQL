@@ -1,0 +1,6 @@
+IdentityDirectoryEvents 
+| where ActionType contains "User Phone Number changed"
+| extend Phone = tostring(parse_json(AdditionalFields["TO User Phone Number"]))
+| where Phone !startswith "+47"
+| where Phone !startswith "+46"
+| where Phone != @"N/A"
